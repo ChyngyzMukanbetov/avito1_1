@@ -23,13 +23,13 @@ public class MainPageDaoImpl implements MainPageDao {
 
     @Override
     public List<Item> listItem() {
-        List<Item> notSotedList = new ArrayList<>(entityManager.createQuery("From Item", Item.class).getResultList());
-        return notSotedList.stream().sorted(((o1, o2) -> (int) (o1.getRating() - o2.getRating()))).collect(Collectors.toList());
+        List<Item> notSortedList = new ArrayList<>(entityManager.createQuery("From Item", Item.class).getResultList());
+        return notSortedList.stream().sorted(((o1, o2) -> (int) (o1.getRating() - o2.getRating()))).collect(Collectors.toList());
     }
 
     @Override
     public List<Shop> listShop() {
-        List<Shop> notSotedList2 = new ArrayList<>(entityManager.createQuery("From Shop", Shop.class).getResultList());
-        return notSotedList2.stream().sorted(((o1, o2) -> (int) (o1.getRating() - o2.getRating()))).collect(Collectors.toList());
+        List<Shop> notSortedList2 = new ArrayList<>(entityManager.createQuery("From Shop", Shop.class).getResultList());
+        return notSortedList2.stream().sorted(((o1, o2) -> (int) (o1.getRating() - o2.getRating()))).collect(Collectors.toList());
     }
 }
