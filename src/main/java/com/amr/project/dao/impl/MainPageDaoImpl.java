@@ -33,6 +33,6 @@ public class MainPageDaoImpl implements MainPageDao {
 
     @Override
     public List<Category> listCategory() {
-        return em.createQuery("from category", Category.class).getResultList();
+        return em.createQuery("from category order by name", Category.class).getResultList();
     }
 }
