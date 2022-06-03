@@ -1,6 +1,6 @@
 package com.amr.project.webapp.controller;
 
-import com.amr.project.service.pages.MainPageService;
+import com.amr.project.service.abstracts.MainPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +20,7 @@ public class MainPageController {
     public String getAll(Model model) {
         model.addAttribute("items", mainPageService.listItem());
         model.addAttribute("shops", mainPageService.listShop());
+        model.addAttribute("category", mainPageService.listCategory());
         return "mainPage";
     }
 }

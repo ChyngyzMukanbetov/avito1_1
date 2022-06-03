@@ -1,5 +1,6 @@
-package com.amr.project.service.pages;
+package com.amr.project.service.abstracts;
 
+import com.amr.project.model.entity.Category;
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Shop;
 
@@ -10,4 +11,6 @@ public interface MainPageService {
     List<Item> listItem();
 
     List<Shop> listShop();
+
+    List<Category> listCategory();
 }

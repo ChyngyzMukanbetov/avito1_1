@@ -1,5 +1,6 @@
-package com.amr.project.dao.pages;
+package com.amr.project.dao.abstracts;
 
+import com.amr.project.model.entity.Category;
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Shop;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,6 @@ public interface MainPageDao {
     List<Item> listItem();
 
     List<Shop> listShop();
+
+    List<Category> listCategory();
 }
