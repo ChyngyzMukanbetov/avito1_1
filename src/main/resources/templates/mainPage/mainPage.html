@@ -1,0 +1,231 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!--    Кастомные стили   -->
+    <link rel="stylesheet" href="css/mainPageStyles.css">
+
+    <!-- ===== Link Swiper's CSS ===== -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+
+    <!-- ===== Fontawesome CDN Link ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+    <title>Avito!</title>
+</head>
+<body>
+
+<!-- Modal authorization -->
+<div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalLabel"
+     aria-hidden="true">
+
+    <form class="authUser">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Войдите или зарегистрируйтесь, чтобы продолжить</h5>
+                    <label class="d-flex justify-content-start font-weight-bold">
+                        Введите адрес электронной почты </label>
+                    <input type="text"
+                           class="form-control text-center"
+                           name="email"
+                    />
+                    <br>
+                    <label class="d-flex justify-content-start font-weight-bold">
+                        Введите пароль </label>
+                    <input type="text"
+                           class="form-control text-center"
+                           name="password"
+                    />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary">Регистрация</button>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<!-- Modal authorization -->
+
+<!-- Navbar-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <!-- Left elements -->
+        <div class="d-flex">
+
+        </div>
+        <!-- Left elements -->
+
+        <!-- Center elements -->
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="dropdown">
+                    <button class="btn btn-customFind dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Каталог
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" th:each="cat : ${category}"
+                           th:text="${cat.name}">Наименование Категории</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form class="form-inline">
+                    <input class="form-control" size="35" type="search" placeholder="Введите название товара"
+                           style="border-radius: 0px; background-color: white"
+                           aria-label="Search">
+                    <button class="btn btn-customFind" type="submit">Найти</button>
+
+                </form>
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-customCart" type="submit">Корзина</button>
+            </div>
+        </div>
+        <!-- Center elements -->
+
+        <!-- Right elements -->
+        <div class="row">
+            <div class="col-lg-3 "></div>
+            <div class="col-lg-3 "></div>
+            <div class="col-lg-6 ">
+                <button type="button" class="btn btn-customAuth" data-toggle="modal"
+                        data-target="#authModal">
+                    Вход
+                </button>
+            </div>
+        </div>
+        <!-- Right elements -->
+    </div>
+</nav>
+<!-- Navbar -->
+
+
+<!--Main Page-->
+<div class="container">
+    <!--Популярные товары-->
+    <div class="row">
+        <div class="col">
+            <h2>
+                Подборка популярных товаров
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <section>
+
+            <div class="swiper mySwiperItems container">
+                <div class="swiper-wrapper content">
+
+                    <div class="swiper-slide card" th:each="item : ${items}">
+                        <div class="card-content">
+                            <div class="main-images">
+                                <img th:src="${'data:image/png;base64,' + item.images.get(0).getBase64String()}" alt="Item photo" />
+                            </div>
+                            <div class="item-details">
+                                <span class="item_name" th:text="${item.name}">Название товара</span>
+                                <p th:text="${item.description}">Описание товара</p>
+                            </div>
+                            <div class="color-price">
+                                <div class="price">
+                                    <span class="price_letter">Цена:</span>
+                                    <span th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 2, 'POINT')} + '&#8381'"
+                                          classx`="price_num">199</span>
+                                </div>
+                            </div>
+                            <div class="button">
+                                <div class="button-layer"></div>
+                                <button>В корзину</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="swiper-button-next swiperItems-button-next"></div>
+            <div class="swiper-button-prev swiperItems-button-next"></div>
+            <div class="swiper-pagination" swiperItems-button-next></div>
+        </section>
+    </div>
+    <!--Популярные товары-->
+
+    <!--Популярные магазины-->
+    <div class="row">
+        <div class="col">
+            <h2>
+                Подборка популярных магазинов
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <section>
+
+            <div class="swiper mySwiperShops container">
+                <div class="swiper-wrapper content">
+
+                    <div class="swiper-slide card" th:each="shop : ${shops}">
+                        <div class="card-content">
+                            <div class="main-images">
+                                <img th:src="${'data:image/png;base64,' + shop.logo.getBase64String()}" alt="Shop photo" />
+                            </div>
+                            <div class="item-details">
+                                <span class="item_name" th:text="${shop.name}">Название магазина</span>
+                                <p th:text="${shop.description}">Описание магазина</p>
+                            </div>
+                            <div class="button">
+                                <div class="button-layer"></div>
+                                <button>Перейти</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="swiper-button-next swiperShops-button-next"></div>
+            <div class="swiper-button-prev swiperShops-button-next"></div>
+            <div class="swiper-pagination" swiperShops-button-next></div>
+        </section>
+    </div>
+    <!--Популярные магазины-->
+</div>
+<!--Main Page-->
+
+<!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script src="js/mainPage.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
