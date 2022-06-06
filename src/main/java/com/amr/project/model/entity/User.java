@@ -1,5 +1,6 @@
 package com.amr.project.model.entity;
 
+import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import lombok.*;
 import org.apache.commons.codec.binary.Base32;
@@ -37,6 +38,19 @@ public class User implements UserDetails {
     private boolean isUsing2FA;
     private String secret;
     private boolean isIdentification;
+    @ToString.Exclude
+    private String phone;
+    @ToString.Exclude
+    private String firstName;
+    @ToString.Exclude
+    private String lastName;
+    @ToString.Exclude
+    private int age;
+    @Enumerated(EnumType.STRING)
+    @ToString.Exclude
+    private Gender gender;
+    @ToString.Exclude
+    private Calendar birthday;
 
 
     public User() {
@@ -55,18 +69,6 @@ public class User implements UserDetails {
     @ToString.Exclude
     private PersonalData personalData;
 
-
-
-    @OneToOne(mappedBy = "user",
-            cascade = {CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.DETACH},
-            fetch = FetchType.LAZY, optional = false)
-    @ToString.Exclude
-    private UserInfo userInfo;
-
-
     @OneToOne(mappedBy = "user",
             cascade = {CascadeType.MERGE,
             CascadeType.PERSIST,
@@ -75,7 +77,6 @@ public class User implements UserDetails {
             fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     private Favorite favorite;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
