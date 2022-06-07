@@ -78,6 +78,7 @@ public class User implements UserDetails {
     @ToString.Exclude
     private Favorite favorite;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private Address address;
