@@ -3,12 +3,9 @@ package com.amr.project.converter;
 import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.entity.Item;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface ItemMapper {
-
-    ItemMapper INSTANSE = Mappers.getMapper(ItemMapper.class);
 
     ItemDto toDTO(Item item);
 
