@@ -2,8 +2,8 @@ package com.amr.project.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,13 +23,6 @@ public class Country {
 
     @Column(name = "name")
     private String name;
-
-    /*@OneToMany(
-            mappedBy = "location",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Shop> shops;*/
 
     @OneToMany(
             mappedBy = "country",
@@ -52,5 +45,15 @@ public class Country {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public void setCities(List<City> cities) {
+        if (this.cities == null) {
+            this.cities = new ArrayList<>();
+        }
+        this.cities.clear();
+        if (cities != null) {
+            this.cities.addAll(cities);
+        }
     }
 }

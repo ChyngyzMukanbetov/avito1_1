@@ -2,8 +2,8 @@ package com.amr.project.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +39,18 @@ public class City {
     @ToString.Exclude
     private Country country;
 
+
+    @OneToMany(
+            mappedBy = "location",
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
+            orphanRemoval = true
+    )
+    @ToString.Exclude
+    private List<Shop> shops;
+
     public City(Long id) {
         this.id = id;
     }
@@ -54,5 +66,15 @@ public class City {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        if (this.addresses == null) {
+            this.addresses = new ArrayList<>();
+        }
+        this.addresses.clear();
+        if (addresses != null) {
+            this.addresses.addAll(addresses);
+        }
     }
 }
