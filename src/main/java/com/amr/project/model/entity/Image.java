@@ -28,6 +28,10 @@ public class Image {
 
     private Boolean isMain;
 
+    public Image(Long id, byte[] picture) {
+        this.id = id;
+        this.picture = picture;
+    }
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")

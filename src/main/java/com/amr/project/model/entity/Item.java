@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Item {
     private Long id;
 
     //TODO: проверить "правильность" параметра unique (могут быть товары с одинаковыми наименованиями у разных Shops, Users, CartItems)
-    @Column(name = "name"/*, unique = true*/)
+    @Column(name = "name", unique = false)
     private String name;
 
     @Column(name = "base_price")
@@ -43,6 +44,18 @@ public class Item {
 
     private String description;
     private int discount;
+
+    public Item(Long id, String name, BigDecimal basePrice, BigDecimal price,
+                int count, double rating, String description, int discount) {
+        this.id = id;
+        this.name = name;
+        this.basePrice = basePrice;
+        this.price = price;
+        this.count = count;
+        this.rating = rating;
+        this.description = description;
+        this.discount = discount;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
@@ -63,7 +76,8 @@ public class Item {
                     CascadeType.PERSIST,
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
-            orphanRemoval = true)
+            orphanRemoval = false
+    )
     @JoinColumn(name = "item_id")
     @ToString.Exclude
     private List<Image> images;
@@ -75,7 +89,7 @@ public class Item {
                     CascadeType.PERSIST,
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
-            orphanRemoval = true
+            orphanRemoval = false
     )
     @ToString.Exclude
     private List<Review> reviews;
@@ -103,11 +117,41 @@ public class Item {
                     CascadeType.PERSIST,
                     CascadeType.REFRESH,
                     CascadeType.DETACH},
-            orphanRemoval = true
+            orphanRemoval = false
     )
     @ToString.Exclude
     private List<SalesHistory> history;
 
+
+    public void setImages(List<Image> images) {
+        if (this.images == null) {
+            this.images = new ArrayList<>();
+        }
+        this.images.clear();
+        if (images != null) {
+            this.images.addAll(images);
+        }
+    }
+
+    public void setReviews(List<Review> reviews) {
+        if (this.reviews == null) {
+            this.reviews = new ArrayList<>();
+        }
+        this.reviews.clear();
+        if (reviews != null) {
+            this.reviews.addAll(reviews);
+        }
+    }
+
+    public void setSalesHistory(List<SalesHistory> history) {
+        if (this.history == null) {
+            this.history = new ArrayList<>();
+        }
+        this.history.clear();
+        if (history != null) {
+            this.history.addAll(history);
+        }
+    }
 
     private boolean isModerated;
     private boolean isModerateAccept;

@@ -1,13 +1,25 @@
 package com.amr.project.service.impl;
 
 import com.amr.project.dao.abstracts.ReadWriteDao;
+import com.amr.project.dao.abstracts.ReviewDao;
 import com.amr.project.model.entity.Review;
 import com.amr.project.service.abstracts.ReviewService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewServiceImpl extends ReadWriteServiceImpl<Review, Long> implements ReviewService {
-    public ReviewServiceImpl(ReadWriteDao<Review, Long> dao) {
-        super(dao);
+
+    private final ReviewDao reviewDao;
+
+    public ReviewServiceImpl(ReviewDao reviewDao) {
+        super(reviewDao);
+        this.reviewDao = reviewDao;
+    }
+
+    @Override
+    public List<Review> getReviewsByItemId(Long itemId) {
+        return reviewDao.getReviewsByItemId(itemId);
     }
 }
