@@ -23,6 +23,5 @@ public class AddressDto {
     private String city;
     private Long countryId;
     private String country;
-    //добавить это поле в сущности нужно для указания дополнительной информации по адресу
     private String additionalInfo;
 }

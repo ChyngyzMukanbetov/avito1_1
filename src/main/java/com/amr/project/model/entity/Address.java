@@ -2,7 +2,6 @@ package com.amr.project.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@Table(name="addrezz")
+@Table(name="address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,18 +47,6 @@ public class Address {
     private List<User> users;
 
 
-    @OneToMany(
-            mappedBy = "address",
-            cascade = {CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH,
-                    CascadeType.DETACH},
-            orphanRemoval = true
-    )
-    @ToString.Exclude
-    private List<Shop> shops;
-
-
     @OneToMany(cascade = {CascadeType.MERGE,
             CascadeType.PERSIST,
             CascadeType.REFRESH,
@@ -68,6 +55,9 @@ public class Address {
             mappedBy = "address")
     @ToString.Exclude
     private List<Order> orders;
+
+    @Column(name = "additionalInfo")
+    private String additionalInfo;
 
     @Override
     public boolean equals(Object o) {

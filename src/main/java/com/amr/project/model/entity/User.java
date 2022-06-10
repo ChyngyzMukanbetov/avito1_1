@@ -7,7 +7,6 @@ import org.apache.commons.codec.binary.Base32;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -251,5 +250,15 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public void setShops(Set<Shop> shops) {
+        if (this.shops == null) {
+            this.shops = new HashSet<>();
+        }
+        this.shops.clear();
+        if (shops != null) {
+            this.shops.addAll(shops);
+        }
     }
 }

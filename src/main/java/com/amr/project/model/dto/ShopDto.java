@@ -1,9 +1,7 @@
 package com.amr.project.model.dto;
 
-import com.amr.project.model.entity.Country;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-
 import java.util.List;
 
 @Data
