@@ -36,6 +36,14 @@ public class Review {
     @Column(name = "rating")
     private int rating;
 
+    public Review(Long id, String dignity, String flaw, String text, Date date, int rating) {
+        this.id = id;
+        this.dignity = dignity;
+        this.flaw = flaw;
+        this.text = text;
+        this.date = date;
+        this.rating = rating;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude

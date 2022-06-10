@@ -2,5 +2,9 @@ package com.amr.project.dao.abstracts;
 
 import com.amr.project.model.entity.Review;
 
-public interface ReviewDao extends ReadWriteDao<Review, Long>{
+import java.util.List;
+
+public interface ReviewDao extends ReadWriteDao<Review, Long> {
+
+    List<Review> getReviewsByItemId(Long itemId);
 }
