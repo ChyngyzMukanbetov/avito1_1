@@ -109,4 +109,6 @@ public class ShopRestController {
         }
         return shopConverter.toDto(shopService.findById(id));
     }
+
+
 }

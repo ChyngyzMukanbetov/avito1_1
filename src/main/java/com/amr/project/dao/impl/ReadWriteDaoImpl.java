@@ -1,9 +1,14 @@
 package com.amr.project.dao.impl;
 
 import com.amr.project.dao.abstracts.ReadWriteDao;
+import com.amr.project.model.entity.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -62,4 +67,21 @@ public class ReadWriteDaoImpl<T, K> implements ReadWriteDao<T, K> {
         return em.createQuery("select u from " + clazz.getName() + " u", clazz)
                 .getResultList();
     }
+
+    @Override
+    public Page<T> getAll(Pageable pageable) {
+        Query query =  em.createQuery("select u from " + clazz.getName() + "u", clazz);
+        int pageNumber = pageable.getPageNumber();
+        int pageSize =pageable.getPageSize();
+        query.setFirstResult((pageNumber) * pageSize);
+        query.setMaxResults(pageSize);
+
+        List<T> list = query.getResultList();
+
+        Query queryCount = em.createQuery("Select count(i.id) From" +  clazz.getName()+ "i", clazz);
+        long count = (long) queryCount.getSingleResult();
+
+        return  new PageImpl<T>(list, pageable,count);
+    }
+
 }
