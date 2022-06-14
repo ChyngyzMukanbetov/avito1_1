@@ -11,6 +11,6 @@ public class CategoryDaoImpl extends ReadWriteDaoImpl<Category, Long> implements
 
     @Override
     public List<Category> getCategoryList() {
-        return em.createQuery("from category order by name", Category.class).getResultList();
+        return  em.createQuery("from category order by name", Category.class).getResultList();
     }
 }

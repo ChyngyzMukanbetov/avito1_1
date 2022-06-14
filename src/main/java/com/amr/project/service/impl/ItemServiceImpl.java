@@ -2,13 +2,17 @@ package com.amr.project.service.impl;
 
 import com.amr.project.dao.abstracts.ImageDao;
 import com.amr.project.dao.abstracts.ItemDao;
+import com.amr.project.dao.abstracts.ReadWriteDao;
 import com.amr.project.dao.abstracts.ReviewDao;
 import com.amr.project.model.entity.Image;
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Review;
 import com.amr.project.service.abstracts.ItemService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -34,6 +38,11 @@ public class ItemServiceImpl extends ReadWriteServiceImpl<Item, Long> implements
         this.imageDao = imageDao;
         this.reviewDao = reviewDao;
     }
+
+
+   public Page<Item> getAll (Pageable pageable){
+        return itemDao.getAll(pageable);
+   }
 
     @Override
     @Transactional

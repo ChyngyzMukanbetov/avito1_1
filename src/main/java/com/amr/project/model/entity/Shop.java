@@ -24,7 +24,7 @@ public class Shop implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-    @Column(unique = true)
+    @Column (unique = true)
     private String name;
     @Column(unique = true)
     private String email;

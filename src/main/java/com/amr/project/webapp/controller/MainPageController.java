@@ -1,9 +1,13 @@
 package com.amr.project.webapp.controller;
 
+import com.amr.project.model.entity.Item;
 import com.amr.project.service.abstracts.CategoryService;
 import com.amr.project.service.abstracts.ItemService;
 import com.amr.project.service.abstracts.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +32,16 @@ public class MainPageController {
         model.addAttribute("items", itemService.getItemList());
         model.addAttribute("shops", shopService.getShopList());
         model.addAttribute("category", categoryService.getCategoryList());
-        return "mainPage";
+        return "/mainPage/mainPage";
     }
+
+    @GetMapping("/items")
+    public String getItems(@PageableDefault(size =3) Pageable pageable,
+                            Model model) {
+        Page<Item > page = itemService.getAll(pageable);
+                 model.addAttribute("page", page);
+        return "/mainPage/items_page";
+    }
+
+
 }
