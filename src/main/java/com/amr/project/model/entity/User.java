@@ -23,7 +23,7 @@ public class User implements UserDetails {
     @ToString.Exclude
     private Long id;
 
-    @Column(name = "email"), unique = true)
+    @Column(name = "email", unique = true)
     @ToString.Exclude
     private String email;
 
