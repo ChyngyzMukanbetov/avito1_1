@@ -1,5 +1,6 @@
 package com.amr.project.converter.Resolver;
 
+import com.amr.project.model.dto.UserDto;
 import com.amr.project.model.entity.User;
 import com.amr.project.service.abstracts.UserService;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,17 @@ public class UserResolver {
             return null;
         } else {
             return userService.findById(userId);
+        }
+    }
+
+    @ObjectFactory
+    public User resolve(UserDto userDto, @TargetType Class<User> type) {
+        if (userDto == null) {
+            return null;
+        } else if (userDto.getId() == null) {
+            return new User();
+        } else {
+            return userService.findById(userDto.getId());
         }
     }
 }
