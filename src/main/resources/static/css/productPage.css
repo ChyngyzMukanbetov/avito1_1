@@ -295,3 +295,8 @@ body {
     cursor: pointer;
 
 }
+
+.strike-text {
+    color: red;
+    text-decoration: line-through
+}
