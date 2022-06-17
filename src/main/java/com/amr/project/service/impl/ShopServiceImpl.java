@@ -5,6 +5,7 @@ import com.amr.project.dao.abstracts.ShopDao;
 import com.amr.project.model.entity.Shop;
 import com.amr.project.service.abstracts.ShopService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -23,5 +24,14 @@ public class ShopServiceImpl extends ReadWriteServiceImpl<Shop, Long> implements
     @Override
     public List<Shop> getShopList() {
         return shopDao.getShopList();
+    }
+
+    @Override
+    @Transactional
+    public void update(Shop shop) {
+        shop.setModerated(false);
+        shop.setModerateAccept(false);
+        shop.setPretendedToBeDeleted(false);
+        dao.update(shop);
     }
 }

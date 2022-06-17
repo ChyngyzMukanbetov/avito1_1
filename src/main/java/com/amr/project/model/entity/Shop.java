@@ -1,5 +1,7 @@
 package com.amr.project.model.entity;
 
+import com.amr.project.model.entity.report.ShopHistory;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
 import javax.persistence.*;
@@ -131,6 +133,16 @@ public class Shop implements Serializable {
         return isPretendedToBeDeleted;
     }
 
+    @OneToMany(
+            mappedBy = "shop",
+            cascade = {CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
+            orphanRemoval = false
+    )
+    @ToString.Exclude
+    private List<ShopHistory> history;
 
     @Override
     public boolean equals(Object o) {

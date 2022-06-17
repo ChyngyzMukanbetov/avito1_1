@@ -29,6 +29,4 @@ public class ItemDaoImpl extends ReadWriteDaoImpl<Item, Long> implements ItemDao
     public List<Item> getItemList() {
         return  em.createQuery("from item order by rating desc limit 6", Item.class).getResultList();
     }
-
-
 }
