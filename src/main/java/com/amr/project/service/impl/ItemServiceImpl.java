@@ -2,11 +2,11 @@ package com.amr.project.service.impl;
 
 import com.amr.project.dao.abstracts.ImageDao;
 import com.amr.project.dao.abstracts.ItemDao;
-import com.amr.project.dao.abstracts.ReadWriteDao;
 import com.amr.project.dao.abstracts.ReviewDao;
 import com.amr.project.model.entity.Image;
 import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Review;
+import com.amr.project.model.entity.Shop;
 import com.amr.project.service.abstracts.ItemService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,5 +56,9 @@ public class ItemServiceImpl extends ReadWriteServiceImpl<Item, Long> implements
         resultList.forEach(item -> item.setImages(mapImage.get(item.getId())));
         resultList.forEach(item -> item.setReviews(mapReview.get(item.getId())));
         return resultList;
+    }
+
+    public List<Item> getItemsByShop(Shop shop) {
+        return itemDao.findAll().stream().filter(item -> item.getShop().equals(shop)).collect(Collectors.toList());
     }
 }

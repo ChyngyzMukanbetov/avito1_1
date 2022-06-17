@@ -2,16 +2,20 @@ package com.amr.project.webapp.controller.shopController;
 
 import com.amr.project.converter.*;
 import com.amr.project.model.dto.*;
+import com.amr.project.model.entity.Item;
 import com.amr.project.model.entity.Shop;
+import com.amr.project.model.entity.report.ShopHistory;
 import com.amr.project.service.abstracts.*;
+import com.amr.project.util.ShopModalPageDtoUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RestController
 @AllArgsConstructor
@@ -19,12 +23,9 @@ import java.util.List;
 public class ShopRestController {
 
     private final ShopService shopService;
-    private final CityService cityService;
-    private final CountryService countryService;
-    private final UserService userService;
-    private final ReviewService reviewService;
     private final ShopConverter shopConverter;
-    private final CouponService couponService;
+    private final ShopHistoryService shopHistoryService;
+    private final ShopModalPageDtoUtil shopModalPageDtoUtil;
 
     @GetMapping("")
     public List<ShopDto> getAllModeratedShops() {
@@ -65,6 +66,16 @@ public class ShopRestController {
         return shopConverter.toDto(shopService.findById(id));
     }
 
+    @GetMapping("modalPage/{id}")
+    public ResponseEntity<ShopModalPageDto> getShopModal (@PathVariable Long id) {
+        Shop shop = shopService.findById(id);
+        if (shop.isModerated() && shop.isModerateAccept() && !shop.isPretendedToBeDeleted()) {
+            return new ResponseEntity<>(shopModalPageDtoUtil.getShopModalPageDto(id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ShopDto> createShop(@RequestBody ShopDto shopDto, Principal principal) {
         if (shopDto.getId() != null) {
@@ -72,6 +83,7 @@ public class ShopRestController {
         } else {
             Shop shop = shopConverter.toShop(shopDto);
             shopService.persist(shop);
+            shopHistoryService.persist(shop);
             return new ResponseEntity<>(shopConverter.toDto(shopService.findById(shop.getId())), HttpStatus.OK);
         }
     }
@@ -88,10 +100,8 @@ public class ShopRestController {
 
         } else {
             Shop shop = shopConverter.toShop(shopDto);
-            shop.setModerated(false);
-            shop.setModerateAccept(false);
-            shop.setPretendedToBeDeleted(false);
             shopService.update(shop);
+            shopHistoryService.update(shop);
             return new ResponseEntity<>(shopConverter.toDto(shopService.findById(shopDto.getId())), HttpStatus.OK);
         }
     }

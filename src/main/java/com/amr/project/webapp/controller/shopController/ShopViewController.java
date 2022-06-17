@@ -25,26 +25,24 @@ public class ShopViewController {
 
     @GetMapping("/{id}")
     public String getShopByID(Model model, @PathVariable Long id) {
-        Shop shop = shopService.findById(id);
-        if (shop.isModerated() && shop.isModerateAccept() && !shop.isPretendedToBeDeleted()) {
-            ShopDto shopDto = shopConverter.toDto(shop);
-            model.addAttribute("shopDto", shopDto);
-        } else {
-            model.addAttribute("messege","NOT FOUND OR NOT_MODERATED");
-        }
-        return "showcase";
+        if (shopService.existsById(id)) {
+            Shop shop = shopService.findById(id);
+            if (shop.isModerated() && shop.isModerateAccept() && !shop.isPretendedToBeDeleted()) {
+                model.addAttribute("shopDto", shopConverter.toDto(shop));
+                return "showcase";
+            } else return "notFound";
+        } else return "notFound";
     }
 
     @GetMapping("/items/{id}")
     public String getItemsShopByID(Model model, @PathVariable Long id) {
-        Shop shop = shopService.findById(id);
-        if (shop.isModerated() && shop.isModerateAccept() && !shop.isPretendedToBeDeleted()) {
-            ShopDto shopDto = shopConverter.toDto(shop);
-            model.addAttribute("shopDto", shopDto);
-        } else {
-            model.addAttribute("messege","NOT FOUND OR NOT_MODERATED");
-        }
-        return "showcaseAllProducts";
+        if (shopService.existsById(id)) {
+            Shop shop = shopService.findById(id);
+            if (shop.isModerated() && shop.isModerateAccept() && !shop.isPretendedToBeDeleted()) {
+                model.addAttribute("shopDto", shopConverter.toDto(shop));
+                return "showcaseAllProducts";
+            } else return "notFound";
+        } else return "notFound";
     }
 
     @GetMapping("")
