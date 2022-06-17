@@ -30,12 +30,12 @@ public class ItemViewController {
     }
 
 
-    @GetMapping("/item/{id}")
+    @GetMapping("/{id}")
     public String getItemById(Model model, @PathVariable Long id) {
         Item item = itemService.findById(id);
         ItemDto itemDto = itemMapper.toDTO(item);
         model.addAttribute("itemDto", itemDto);
-        return "itemView";
+        return "productPage/productPage";
     }
 
     @GetMapping("/allItems")

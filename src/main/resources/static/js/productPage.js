@@ -1,6 +1,5 @@
 console.log("static js file")
 
-getDescription()
 ratingStars()
 
 function changeImage(element) {
