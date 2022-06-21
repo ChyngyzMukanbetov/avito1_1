@@ -100,7 +100,6 @@ public class Item {
     private List<Favorite> favorites;
 
 
-
     @ManyToMany(mappedBy = "itemsInOrder")
     @OrderBy("orderDate ASC")
     @ToString.Exclude

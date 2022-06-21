@@ -3,10 +3,10 @@ package com.amr.project.model.entity;
 import com.amr.project.model.enums.Gender;
 import com.amr.project.model.enums.Roles;
 import lombok.*;
-import org.apache.commons.codec.binary.Base32;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -70,9 +70,9 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user",
             cascade = {CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.REFRESH,
-            CascadeType.DETACH},
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.DETACH},
             fetch = FetchType.LAZY, optional = false)
     @ToString.Exclude
     private Favorite favorite;
