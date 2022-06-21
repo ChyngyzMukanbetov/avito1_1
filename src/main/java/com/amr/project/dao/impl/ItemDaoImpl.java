@@ -27,6 +27,7 @@ public class ItemDaoImpl extends ReadWriteDaoImpl<Item, Long> implements ItemDao
 
     @Override
     public List<Item> getItemList() {
-        return  em.createQuery("from item order by rating desc limit 6", Item.class).getResultList();
+        return  em.createQuery("select u from Item u order by u.rating desc", Item.class)
+                .setMaxResults(4).getResultList();
     }
 }

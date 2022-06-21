@@ -25,7 +25,7 @@ public class ItemServiceImpl extends ReadWriteServiceImpl<Item, Long> implements
     private final ReviewDao reviewDao;
     private final ImageDao imageDao;
 
-
+    @Transactional
     @Override
     public List<Item> getItemList() {
         return itemDao.getItemList();

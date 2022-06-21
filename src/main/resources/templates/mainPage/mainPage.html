@@ -82,7 +82,7 @@
                         Каталог
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#" th:each="cat : ${category}"
+                        <a class="dropdown-item" href="#" th:each="cat : ${mainPageDto.categoryDto}"
                            th:text="${cat.name}">Наименование Категории</a>
                     </div>
                 </div>
@@ -135,10 +135,11 @@
             <div class="swiper mySwiperItems container">
                 <div class="swiper-wrapper content">
 
-                    <div class="swiper-slide card" th:each="item : ${items}">
+                    <div class="swiper-slide card" th:each="item : ${mainPageDto.itemDtoList}">
                         <div class="card-content">
                             <div class="main-images">
-                                <img th:src="${'data:image/png;base64,' + item.images.get(0).getBase64String()}" alt="Item photo" />
+                                <img th:src="${item.images != null and item.images.size() > 0} ?
+                                ${'data:image/png;base64,' + item.images.get(0).getBase64String()} : ''" alt="Item photo" />
                             </div>
                             <div class="item-details">
                                 <span class="item_name" th:text="${item.name}">Название товара</span>
@@ -182,10 +183,10 @@
             <div class="swiper mySwiperShops container">
                 <div class="swiper-wrapper content">
 
-                    <div class="swiper-slide card" th:each="shop : ${shops}">
+                    <div class="swiper-slide card" th:each="shop : ${mainPageDto.shopDtoList}">
                         <div class="card-content">
                             <div class="main-images">
-                                <img th:src="${'data:image/png;base64,' + shop.logo.getBase64String()}" alt="Shop photo" />
+                                <img th:src="${shop.logo != null} ? ${'data:image/png;base64,' + shop.logo.getBase64String()} : ''" alt="Shop photo" />
                             </div>
                             <div class="item-details">
                                 <span class="item_name" th:text="${shop.name}">Название магазина</span>

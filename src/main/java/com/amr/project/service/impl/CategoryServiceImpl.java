@@ -5,6 +5,7 @@ import com.amr.project.dao.abstracts.ReadWriteDao;
 import com.amr.project.model.entity.Category;
 import com.amr.project.service.abstracts.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,12 +14,13 @@ public class CategoryServiceImpl extends ReadWriteServiceImpl<Category, Long> im
 
     private final CategoryDao categoryDao;
 
+
     public CategoryServiceImpl(ReadWriteDao<Category, Long> dao, CategoryDao categoryDao) {
         super(dao);
         this.categoryDao = categoryDao;
     }
 
-
+    @Transactional
     @Override
     public List<Category> getCategoryList() {
         return categoryDao.getCategoryList();

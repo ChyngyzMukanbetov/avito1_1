@@ -4,10 +4,12 @@ import com.amr.project.model.dto.ItemDto;
 import com.amr.project.model.entity.Item;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {ImageMapper.class, ReviewMapper.class},
+@Component
+@Mapper(componentModel = "spring", uses = {ImageMapper.class, ReviewMapper.class, CategoryMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface ItemMapper {
 
