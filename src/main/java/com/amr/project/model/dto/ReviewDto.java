@@ -1,6 +1,7 @@
 package com.amr.project.model.dto;
 
 
+import com.amr.project.model.entity.Review;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -17,6 +18,7 @@ import java.util.Date;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class ReviewDto {
+
     private Long id;
     private String dignity;
     private String flaw;

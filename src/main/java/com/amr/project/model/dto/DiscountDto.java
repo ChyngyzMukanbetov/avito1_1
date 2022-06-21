@@ -1,5 +1,6 @@
 package com.amr.project.model.dto;
 
+import com.amr.project.model.entity.Discount;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -13,6 +14,7 @@ import lombok.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id", scope = Long.class)
 public class DiscountDto {
+
     private Long id;
     private Integer minOrder;
     private Integer percentage;
