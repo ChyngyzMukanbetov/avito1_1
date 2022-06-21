@@ -1,9 +1,9 @@
 package com.amr.project.model.entity;
 
 import com.amr.project.model.entity.report.ShopHistory;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,11 +26,11 @@ public class Shop implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-    @Column (unique = true)
+    @Column(unique = true)
     private String name;
-    @Column(unique = true)
+   @Column(unique = true)
     private String email;
-    @Column(unique = true)
+   @Column(unique = true)
     private String phone;
     @Column
     private String description;

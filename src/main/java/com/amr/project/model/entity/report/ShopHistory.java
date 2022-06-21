@@ -2,7 +2,6 @@ package com.amr.project.model.entity.report;
 
 import com.amr.project.model.entity.Shop;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +19,6 @@ public class ShopHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Calendar createDate;
     private Calendar updateDate;
     private String name;
