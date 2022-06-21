@@ -20,7 +20,7 @@ public class ShopServiceImpl extends ReadWriteServiceImpl<Shop, Long> implements
         this.shopDao = shopDao;
     }
 
-
+    @Transactional
     @Override
     public List<Shop> getShopList() {
         return shopDao.getShopList();

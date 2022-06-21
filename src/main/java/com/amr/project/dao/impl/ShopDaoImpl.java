@@ -11,6 +11,6 @@ public class ShopDaoImpl extends ReadWriteDaoImpl<Shop, Long> implements ShopDao
 
     @Override
     public List<Shop> getShopList() {
-        return em.createQuery("from shop order by rating desc limit 4", Shop.class).getResultList();
+        return em.createQuery("select u from Shop u order by u.rating desc", Shop.class).setMaxResults(6).getResultList();
     }
 }
